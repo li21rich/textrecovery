@@ -1,6 +1,8 @@
 # textrecovery
 
-An install-and-forget-about-it background tool that keeps a rolling copy of what you've typed recently, so a paragraph you accidentally deleted isn't gone forever. Once you actually need it, open it and find what you've recently typed. Keystrokes only, so no clipboard or screenshots. 
+Ever type a whole page of text and then accidentally close out of it, losing it forever? It doesn't happen often, but when it does, it's extremely annoying.
+
+textrecovery is an install-and-forget-about-it background tool that keeps a rolling copy of what you've typed recently, so a paragraph you accidentally deleted isn't gone forever. Once you actually need it, open it and find what you've recently typed. Keystrokes only, so no clipboard or screenshots. 
 
 ## Install
 
