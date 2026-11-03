@@ -10,7 +10,7 @@ python3 textrecovery.py --install
 
 This starts the recorder at login. Remove with `--uninstall`.
 
-- **macOS:** grant Accessibility permission when prompted
+- **macOS:** grant accessibility permission if prompted
 - **Linux:** use an X11 session (Wayland is unsupported)
 - **Windows:** The installer adds `textrecovery` to your PATH (open a new terminal afterwards)
 
@@ -49,6 +49,6 @@ Run `textrecovery --config` to print the file's path.
 
 ## Caveats
 
-Everything typed in any app is captured, **passwords and games included**, as
+Everything typed in any app is captured, **passwords included**, as
 plain text in `store.txt`. Point `dir` at an encrypted volume if that matters.
 Nothing is ever sent anywhere. This should not be used as a keylogger.
