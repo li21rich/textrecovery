@@ -2,7 +2,7 @@
 
 Ever type a whole page of text and then accidentally close out of it, losing it forever? It doesn't happen often, but when it does, it's extremely annoying.
 
-textrecovery is an install-and-forget-about-it background tool that keeps a rolling copy of what you've typed recently, so a paragraph you accidentally deleted isn't gone forever. Once you actually need it, open it and find what you've recently typed. Keystrokes only, so no clipboard or screenshots. 
+textrecovery is an install-and-forget-about-it background tool that keeps a rolling copy of what you've typed recently, so a paragraph you accidentally deleted isn't gone forever. If you ever need to use it, open textrecovery (or use the CLI) and find what you've recently typed. 
 
 ## Install
 
@@ -30,10 +30,6 @@ textrecovery --clear              # wipe it
 
 In the viewer, pick a block on the left to preview it. **Copy block** (or double-clicking the block) copies that one; **Copy all** copies every block currently listed (respecting the filter), oldest first. You can always select text and use the usual copy shortcut (e.g. Ctrl + C). The list refreshes every couple of seconds.
 
-## What gets recorded
-
-Letters, numbers, punctuation, spaces, enter, and tab indents (as 4 spaces). Backspace, delete, and arrow keys are ignored. Pasted text and input-method text (CJK IME, emoji picker) aren't captured.
-
 ## Settings
 
 `~/.textrecovery/config.json`, or env vars like `TEXT_RECOVERY_MAX_BYTES=524288`.
@@ -49,7 +45,9 @@ Run `textrecovery --config` to print the file's path.
 | `alnum_only` | `false` | drop spaces and punctuation |
 | `markers` | `true` | timestamp blocks |
 
-## Caveats
+## What gets recorded
+
+Letters, numbers, punctuation, spaces, enter, and tab indents (as 4 spaces). Backspace, delete, and arrow keys are ignored. Copied/Pasted text, input-method text (CJK IME, emoji picker), and screenshots aren't captured.
 
 Everything typed in any app is captured, **passwords included**, as
 plain text in `store.txt`. Point `dir` at an encrypted volume if that matters.
