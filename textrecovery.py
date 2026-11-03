@@ -504,7 +504,7 @@ def desktop():
 
 
 def ps(script):
-    """Run PowerShell (encoded, so quoting can't bite us)."""
+    """Run PowerShell (encoded)."""
     import base64
     enc = base64.b64encode(script.encode("utf-16-le")).decode()
     return sh("powershell", "-NoProfile", "-EncodedCommand", enc)
@@ -669,8 +669,6 @@ def install():
         except OSError as e:
             print(f"Could not add the textrecovery command to PATH: {e}", file=sys.stderr)
         esc = lambda p: str(p).replace("'", "''")
-        ps(f"$s=(New-Object -ComObject WScript.Shell).CreateShortcut('{esc(launcher)}');"
-           f"$s.TargetPath='{esc(pyw)}';$s.Arguments='\"{esc(dest)}\" --gui';$s.Save()")
         if not running_pid():
             print("The recorder is not running. Try: pythonw " + str(dest), file=sys.stderr)
             return 1
@@ -678,9 +676,8 @@ def install():
             print("Installed and verified: Task Scheduler started the recorder and will at every login.")
         else:
             print("Installed. The recorder is running now.")
-        print("Viewer: shortcut on your Desktop.")
-        print("CLI: open a NEW terminal (close all Windows Terminal windows) and run: textrecovery --status")
-        print(f'     until then: python "{dest}" --status')
+        print("Viewer: run: textrecovery --gui")
+        print("CLI: open a new terminal and run: textrecovery --status")
 
     else:
         print(f"--install doesn't support {system}; run `{py} {me}` at login yourself.")
