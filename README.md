@@ -1,8 +1,9 @@
 # textrecovery
-Ever type a whole page of text and then accidentally close out of it, losing it forever? It doesn't happen often, but when it does, it's extremely annoying.
+Ever type a whole page of text and then accidentally close out of it, losing it forever? It doesn't happen often, but when it does, it's tragically annoying.
 
-textrecovery is a very simple, set-it-and-forget--it background tool that keeps a rolling copy of what you've typed recently. So if you accidentally close a tab, crash an app, or delete a paragraph, you can grab it back.
-Once you install it, you never need to start it manually—it automatically runs in the background every time you boot up or log in to your computer. It's a single readable Python file with zero network calls.
+textrecovery is a very simple, set-it-and-forget-it background tool that keeps a rolling copy of what you've typed recently. If you accidentally close a tab, crash an app, or delete a paragraph, you can grab it back.
+
+Once you install it, you won't need to start it manually. It automatically stays in the background upon booting up your computer. It's a single readable Python file with zero network calls while running (besides downloading pynput for you on install).
 
 If you ever need to use it, open textrecovery (or use the CLI) and find what you've recently typed. 
 
