@@ -25,7 +25,7 @@ DEFAULTS = {
     "max_bytes": 262144,
     "flush_secs": 5.0,
     "max_age_hours": 72,
-    "idle_marker_secs": 90,
+    "idle_marker_secs": 300,
     "alnum_only": False,
     "markers": True,
 }
@@ -114,13 +114,17 @@ def trim():
         return
     cut_at = time.time() - CFG["max_age_hours"] * 3600
     keep = data
+    found = False
     for m in MARKER_RE.finditer(data):
         try:
             if stamp_time(m.group(1)) >= cut_at:
                 keep = data[m.start():]
+                found = True
                 break
         except ValueError:
             continue
+    if not found and MARKER_RE.search(data):
+        keep = ""
     if len(keep) > CFG["max_bytes"]:
         keep = keep[-CFG["max_bytes"] // 2:]
         i = keep.find("\n\n[")
@@ -654,7 +658,6 @@ def install():
             win_path(dest.parent, add=True)
         except OSError as e:
             print(f"Could not add the textrecovery command to PATH: {e}", file=sys.stderr)
-        esc = lambda p: str(p).replace("'", "''")
         if not running_pid():
             print("The recorder is not running. Try: pythonw " + str(dest), file=sys.stderr)
             return 1
