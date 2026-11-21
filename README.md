@@ -1,11 +1,13 @@
 # textrecovery
-Ever type a whole page of text and then accidentally close out of it, losing it forever? It doesn't happen often, but when it does, it's tragically annoying.
+Ever type a whole page of text and then accidentally close out of it, losing it forever? It may not happen often, but when it does, it's tragically annoying.
 
-textrecovery is a very simple, set-it-and-forget-it background tool that keeps a rolling copy of what you've typed recently. If you accidentally close a tab, crash an app, or delete a paragraph, you can grab it back.
+textrecovery is a very simple, set-it-and-forget-it background tool that keeps a rolling copy of what you've typed recently. If you accidentally close a tab, crash an app, or delete a paragraph, you can always get it back.
 
-Once you install it, you won't need to start it manually. It automatically stays in the background upon booting up your computer. It's a single readable Python file with zero network calls while running (besides downloading pynput for you on install).
+Once you install it, you won't need to start it manually. It automatically stays in the background upon booting up your computer. It's a single Python file with zero network calls (besides downloading pynput for you on install).
 
-If you ever need to use it, open textrecovery (or use the CLI) and find what you've recently typed. 
+If you ever need to use it, open textrecovery or use the CLI to quickly find what you've recently typed.
+
+<img width="1057" height="878" alt="image" src="https://github.com/user-attachments/assets/01ca70c4-11ea-4fb5-92ef-bfcf565cafc5" />
 
 ## Install
 ```
@@ -40,7 +42,7 @@ What Gets Recorded:
 - **Recorded:** Letters, numbers, punctuation, spaces, Enter, and Tab (as 4 spaces).
 - **Ignored:** Backspace, Delete, arrow keys, copy/paste, CJK IMEs, emoji pickers, and screenshots.
 
-Everything typed in any app—including passwords—is saved as plain text in `~/.textrecovery/store.txt`. Nothing is ever sent over the network. If plain-text storage on disk is a concern, point `dir` to an encrypted volume in your config.
+Everything typed in any app—including sensitive information—is saved as plain text in `~/.textrecovery/store.txt`. Nothing is ever sent over the network. If plain-text storage on disk is a concern, point `dir` to an encrypted volume in your config.
 Because the entire tool is one file (`textrecovery.py`), you can review all the code in a few minutes before running it. 
 Nothing is ever sent anywhere. This should not be used as a keylogger.
 
