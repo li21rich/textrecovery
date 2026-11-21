@@ -44,7 +44,7 @@ What Gets Recorded:
 
 Everything typed in any app—including sensitive information—is saved as plain text in `~/.textrecovery/store.txt`. Nothing is ever sent over the network. If plain-text storage on disk is a concern, point `dir` to an encrypted volume in your config.
 Because the entire tool is one file (`textrecovery.py`), you can review all the code in a few minutes before running it. 
-Nothing is ever sent anywhere. This should not be used as a keylogger.
+Nothing is ever sent anywhere. This should not be used as a keylogger for spyware.
 
 ## Settings
 Edit `~/.textrecovery/config.json` (run `textrecovery --config` to print the path) or set env vars like `TEXT_RECOVERY_MAX_BYTES=524288`.
