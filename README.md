@@ -1,54 +1,57 @@
 # textrecovery
-
 Ever type a whole page of text and then accidentally close out of it, losing it forever? It doesn't happen often, but when it does, it's extremely annoying.
 
-textrecovery is an install-and-forget-about-it background tool that keeps a rolling copy of what you've typed recently, so a paragraph you accidentally deleted isn't gone forever. If you ever need to use it, open textrecovery (or use the CLI) and find what you've recently typed. 
+textrecovery is a very simple, set-it-and-forget--it background tool that keeps a rolling copy of what you've typed recently. So if you accidentally close a tab, crash an app, or delete a paragraph, you can grab it back.
+Once you install it, you never need to start it manually—it automatically runs in the background every time you boot up or log in to your computer. It's a single readable Python file with zero network calls.
+
+If you ever need to use it, open textrecovery (or use the CLI) and find what you've recently typed. 
 
 ## Install
-
 ```
+git clone https://github.com/li21rich/textrecovery.git
+cd textrecovery
 python3 textrecovery.py --install
 ```
 
-This starts the recorder at login. Remove with `--uninstall`.
+This starts the recorder at login. You can fully remove it with `--uninstall`.
 
 - **macOS:** grant accessibility permission if prompted
-- **Linux:** use an X11 session (Wayland is unsupported)
-- **Windows:** The installer adds `textrecovery` to your PATH (open a new terminal afterwards)
+- **Linux:** use an X11 session
+- **Windows:** The installer adds `textrecovery` to your PATH
 
 ## Use
+Typing is grouped into timestamped **blocks**—any pause longer than 90 seconds starts a new block. Old blocks are automatically dropped after 72 hours (or 256 KB).
 
 ```
-textrecovery --gui                # open textrecovery
-textrecovery --blocks 3           # last 3 typed blocks
-textrecovery --blocks 3 --copy    # ...straight to the clipboard
-textrecovery --grep "invoice"     # search everything buffered
+textrecovery --gui                # open the viewer
+textrecovery --blocks 3           # print the last 3 blocks
+textrecovery --blocks 3 --copy    # copy the last 3 blocks to clipboard
+textrecovery --grep "invoice"     # search buffered text
 textrecovery --last 2000          # raw last 2000 characters
-textrecovery --status             # buffer size, and whether the recorder is running
-textrecovery --clear              # wipe it
+textrecovery --status             # check buffer size and if recorder is running
+textrecovery --clear              # wipe the buffer
 ```
 
-In the viewer, pick a block on the left to preview it. **Copy block** (or double-clicking the block) copies that one; **Copy all** copies every block currently listed (respecting the filter), oldest first. You can always select text and use the usual copy shortcut (e.g. Ctrl + C). The list refreshes every couple of seconds.
+In the GUI, click a block on the left to preview it. Double-click (or hit **Copy block**) to copy it, or **Copy all** to copy every block matching your current filter. The list refreshes every couple of seconds. You can also always use Ctrl + C.
+
+## Privacy!!
+What Gets Recorded:
+- **Recorded:** Letters, numbers, punctuation, spaces, Enter, and Tab (as 4 spaces).
+- **Ignored:** Backspace, Delete, arrow keys, copy/paste, CJK IMEs, emoji pickers, and screenshots.
+
+Everything typed in any app—including passwords—is saved as plain text in `~/.textrecovery/store.txt`. Nothing is ever sent over the network. If plain-text storage on disk is a concern, point `dir` to an encrypted volume in your config.
+Because the entire tool is one file (`textrecovery.py`), you can review all the code in a few minutes before running it. 
+Nothing is ever sent anywhere. This should not be used as a keylogger.
 
 ## Settings
+Edit `~/.textrecovery/config.json` (run `textrecovery --config` to print the path) or set env vars like `TEXT_RECOVERY_MAX_BYTES=524288`.
 
-`~/.textrecovery/config.json`, or env vars like `TEXT_RECOVERY_MAX_BYTES=524288`.
-Run `textrecovery --config` to print the file's path.
-
-| key | default | meaning |
+| Key | Default | Meaning |
 | --- | --- | --- |
-| `dir` | `~/.textrecovery` | storage location |
-| `max_age_hours` | `72` | blocks older than this are dropped |
-| `max_bytes` | `262144` | hard size cap (backstop for heavy days) |
-| `flush_secs` | `5.0` | max seconds between writes (also writes after a 2s pause) |
-| `idle_marker_secs` | `90` | pause that starts a new block |
-| `alnum_only` | `false` | drop spaces and punctuation |
-| `markers` | `true` | timestamp blocks |
-
-## What gets recorded
-
-Letters, numbers, punctuation, spaces, enter, and tab indents (as 4 spaces). Backspace, delete, and arrow keys are ignored. Copied/Pasted text, input-method text (CJK IME, emoji picker), and screenshots aren't captured.
-
-Everything typed in any app is captured, **passwords included**, as
-plain text in `store.txt`. Point `dir` at an encrypted volume if that matters.
-Nothing is ever sent anywhere. This should not be used as a keylogger.
+| `dir` | `~/.textrecovery` | Storage location |
+| `max_age_hours` | `72` | Drop blocks older than this |
+| `max_bytes` | `262144` | Hard size cap |
+| `flush_secs` | `5.0` | Max seconds between disk writes (also writes after a 2s pause) |
+| `idle_marker_secs` | `90` | Pause length that starts a new block |
+| `alnum_only` | `false` | Drop spaces and punctuation |
+| `markers` | `true` | Add timestamps to blocks |
