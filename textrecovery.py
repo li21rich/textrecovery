@@ -1,9 +1,6 @@
 #!/usr/bin/env python3
 """
-rolling keyboard buffer with timestamped blocks.
-
-Keeps a rolling, age-and-size-capped window of everything typed, split
-into timestamped blocks whenever you pause. Old data is automatically deleted.
+rolling keyboard buffer with timestamped blocks. old data is automatically deleted.
 """
 
 import argparse
@@ -35,9 +32,8 @@ DEFAULTS = {
 
 VENDOR = Path(DEFAULTS["dir"]).expanduser() / "vendor"
 
-# Pinned, pure-Python wheels, downloaded by --install on Linux and Windows so that no
-# pip, compiler, or sudo is needed. (pip would also pull in `evdev`, which compiles from
-# source on Linux and isn't used by the default X11 backend.) macOS uses pip: pynput
+# pip would also pull in `evdev`
+# macOS uses pip: pynput
 # needs native pyobjc there.
 WHEELS = {
     "six": (
@@ -62,11 +58,7 @@ LAST_DAY = ""
 LAST_TRIM = 0.0
 WAKE = threading.Event()
 
-
-# --------------------------------------------------------------------------
 # config and storage
-# --------------------------------------------------------------------------
-
 def base():
     return Path(CFG["dir"]).expanduser()
 
@@ -240,8 +232,8 @@ def flusher(stop):
             return
 
 
-LOCK_AT = 4096  # byte we lock, past the pid text, so other processes can still read the pid
-LOCKF = None    # held open for the life of the recorder
+LOCK_AT = 4096  # so other processes can still read the pid
+LOCKF = None   
 
 
 def _lock(f, take):
@@ -350,9 +342,7 @@ def run():
     return 0
 
 
-# --------------------------------------------------------------------------
 # viewer
-# --------------------------------------------------------------------------
 
 def gui():
     try:
@@ -464,10 +454,7 @@ def gui():
     return 0
 
 
-# --------------------------------------------------------------------------
 # install / uninstall
-# --------------------------------------------------------------------------
-
 def sh(*cmd):
     try:
         return subprocess.run(cmd, check=False, capture_output=True)
@@ -642,10 +629,9 @@ def install():
         pyw = Path(py).with_name("pythonw.exe")
         pyw = pyw if pyw.exists() else Path(py)
         stop_recorder()
-        # Task Scheduler, not just the registry Run key or Startup folder: packaged
-        # (Microsoft Store) Python sandboxes writes to AppData and HKCU\Software, but the
+        # Task Scheduler: packaged (Microsoft Store) Python sandboxes writes to AppData and HKCU\Software, but the
         # Task Scheduler service stores tasks outside that sandbox. We then start the
-        # recorder *through the task*, which proves the logon launch really works.
+        # recorder *through the task*
         why = register_task(pyw, dest)
         if not why:
             ps("Start-ScheduledTask -TaskName textrecovery")
@@ -723,9 +709,7 @@ def uninstall():
     return 0
 
 
-# --------------------------------------------------------------------------
 # cli
-# --------------------------------------------------------------------------
 
 def main():
     global CFG
