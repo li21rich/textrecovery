@@ -21,7 +21,7 @@ This starts the recorder at login. You can fully remove it with `--uninstall`.
 - **Windows:** The installer adds `textrecovery` to your PATH
 
 ## Use
-Typing is grouped into timestamped **blocks**—any pause longer than 90 seconds starts a new block. Old blocks are automatically dropped after 72 hours (or 256 KB).
+Typing is grouped into timestamped blocks. Old blocks are automatically dropped after 72 hours (or 256 KB).
 
 ```
 textrecovery --gui                # open the viewer
@@ -53,6 +53,6 @@ Edit `~/.textrecovery/config.json` (run `textrecovery --config` to print the pat
 | `max_age_hours` | `72` | Drop blocks older than this |
 | `max_bytes` | `262144` | Hard size cap |
 | `flush_secs` | `5.0` | Max seconds between disk writes (also writes after a 2s pause) |
-| `idle_marker_secs` | `90` | Pause length that starts a new block |
+| `idle_marker_secs` | `300` | Pause length that starts a new block |
 | `alnum_only` | `false` | Drop spaces and punctuation |
 | `markers` | `true` | Add timestamps to blocks |
