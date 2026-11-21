@@ -7,7 +7,7 @@ Once you install it, you won't need to start it manually. It automatically stays
 
 If you ever need to use it, open textrecovery or use the CLI to quickly find what you've recently typed.
 
-<img width="1057" height="878" alt="image" src="https://github.com/user-attachments/assets/01ca70c4-11ea-4fb5-92ef-bfcf565cafc5" />
+<img width="533" height="440" alt="image" src="https://github.com/user-attachments/assets/01ca70c4-11ea-4fb5-92ef-bfcf565cafc5" />
 
 ## Install
 ```
